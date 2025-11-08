@@ -13,12 +13,12 @@ public class Broker {
     }
 
     public void publish(String topic, String message) {
-        Queue<String> eventQueue = messages.getOrDefault(topic, new LinkedList<>());
-        synchronized (eventQueue) {
-            eventQueue.add(message);
-            messages.put(topic, eventQueue);
-            if (eventQueue.size() > maxTopicSize) {
-                eventQueue.poll();
+        Queue<String> topicMessages = messages.getOrDefault(topic,new ArrayDeque<>() );
+        synchronized (topicMessages) {
+            topicMessages.add(message);
+            messages.put(topic, topicMessages);
+            if (topicMessages.size() > maxTopicSize) {
+                topicMessages.poll();
             }
         }
 
