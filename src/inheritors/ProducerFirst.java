@@ -1,4 +1,4 @@
-package classes;
+package inheritors;
 
 import abstractions.AbstractProducer;
 import broker.Broker;
@@ -10,6 +10,7 @@ public class ProducerFirst extends AbstractProducer {
         super(broker);
         this.serviceName = serviceName;
     }
+
 
 
 }
