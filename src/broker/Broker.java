@@ -2,10 +2,11 @@ package broker;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Broker {
 
-    private final int maxTopicSize;
+    private final Integer maxTopicSize;
     private final Map<String, Queue<String>> messages = new ConcurrentHashMap<>();
 
     public Broker(Integer maxSize) {
@@ -13,13 +14,12 @@ public class Broker {
     }
 
     public void publish(String topic, String message) {
-        Queue<String> topicMessages = messages.getOrDefault(topic,new ArrayDeque<>() );
-        synchronized (topicMessages) {
-            topicMessages.add(message);
-            messages.put(topic, topicMessages);
-            if (topicMessages.size() > maxTopicSize) {
-                topicMessages.poll();
-            }
+        Queue<String> topicMessages = messages.computeIfAbsent(topic, t -> new ConcurrentLinkedQueue<>());
+        topicMessages.add(message);
+        System.out.println(messages);
+        if (topicMessages.size() >= maxTopicSize) {
+            topicMessages.poll();
+
         }
 
     }

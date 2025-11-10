@@ -8,10 +8,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class AbstractConsumer {
-    private String topic;
+    private final String topic;
     private final Broker broker;
-    private Long pollRate;
-    private ScheduledExecutorService scheduler;
+    private final Long pollRate;
+    private final ScheduledExecutorService scheduler;
     protected AtomicInteger offset = new AtomicInteger(0);
 
 
