@@ -16,18 +16,19 @@ public class Broker {
     public void publish(String topic, String message) {
         Queue<String> topicMessages = this.map.computeIfAbsent(topic, t -> new ConcurrentLinkedQueue<>());
         topicMessages.add(message);
-        if (topicMessages.size() >= maxTopicSize) {
-            topicMessages.poll();
 
-        }
 
     }
 
     public List<String> getEvents(String topic, Integer offset) {
         Queue<String> messages = map.get(topic);
-        if (messages == null ||  offset >= messages.size()) {
+
+        if (messages == null) {
+            System.out.println("messages is null");
             return Collections.emptyList();
         }
+        System.out.println(messages);
+        System.out.println("offset " +offset );
         return messages.stream()
                 .toList()
                 .subList(offset, messages.size());

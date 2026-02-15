@@ -17,7 +17,8 @@ public class Main {
 
         ProducerFirst producer = new ProducerFirst(broker, "producer-1");
 
-        ConsumerFirst consumer1 = new ConsumerFirst("second", broker, 3000L, "consumer-1", scheduler);
+//        ConsumerFirst consumer1 = new ConsumerFirst("first", broker, 3000L, "consumer-1",
+//                scheduler);
         ConsumerFirst consumer2 = new ConsumerFirst("second", broker, 3000L, "consumer-2", scheduler);
 
 

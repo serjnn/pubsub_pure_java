@@ -20,13 +20,12 @@ public abstract class AbstractConsumer {
         this.broker = broker;
         this.pollRate = pollRate;
         this.scheduler = scheduler;
+        startPolling();
 
     }
 
     private void startPolling() {
-        this.pollAndDoSmth();
-        scheduler.scheduleAtFixedRate(this::startPolling, 0, pollRate, TimeUnit.MILLISECONDS);
-
+        scheduler.scheduleAtFixedRate(this::pollAndDoSmth, 0, pollRate, TimeUnit.MILLISECONDS);
     }
 
     protected List<String> pollEvents() {
