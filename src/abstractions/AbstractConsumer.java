@@ -11,25 +11,22 @@ public abstract class AbstractConsumer {
     private final String topic;
     private final Broker broker;
     private final Long pollRate;
-    private final ScheduledExecutorService scheduler;
-    protected AtomicInteger offset = new AtomicInteger(0);
+    private final ScheduledExecutorService pollingScheduler;
 
-
-    public AbstractConsumer(String topic, Broker broker, Long pollRate, ScheduledExecutorService scheduler) {
+    public AbstractConsumer(String topic, Broker broker, Long pollRate, ScheduledExecutorService pollingScheduler) {
         this.topic = topic;
         this.broker = broker;
         this.pollRate = pollRate;
-        this.scheduler = scheduler;
+        this.pollingScheduler = pollingScheduler;
         startPolling();
-
     }
 
     private void startPolling() {
-        scheduler.scheduleAtFixedRate(this::pollAndDoSmth, 0, pollRate, TimeUnit.MILLISECONDS);
+        pollingScheduler.scheduleAtFixedRate(this::pollAndDoSmth, 0, pollRate, TimeUnit.MILLISECONDS);
     }
 
     protected List<String> pollEvents() {
-        return broker.getEvents(this.topic, this.offset.get());
+        return broker.getEvents(this.topic, this.hashCode());
     }
 
     public abstract void pollAndDoSmth();

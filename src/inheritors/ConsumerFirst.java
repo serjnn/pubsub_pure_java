@@ -23,7 +23,7 @@ public class ConsumerFirst extends AbstractConsumer {
         List<String> events = pollEvents();
         if (events.isEmpty()) return;
         System.out.printf("%s polling %s %n", serviceName, events);
-        offset.addAndGet(events.size());
+
     }
 
 }
