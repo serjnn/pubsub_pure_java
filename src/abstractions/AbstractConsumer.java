@@ -20,6 +20,7 @@ public abstract class AbstractConsumer {
         this.broker = broker;
         this.pollRate = pollRate;
         this.scheduler = scheduler;
+
     }
 
     private void startPolling() {

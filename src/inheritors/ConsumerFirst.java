@@ -16,10 +16,11 @@ public class ConsumerFirst extends AbstractConsumer {
     }
 
     public void pollAndDoSmth() {
-        List<String> events = super.pollEvents();
+        List<String> events = pollEvents();
+        System.out.println("zxcxzc");
         if (events.isEmpty()) return;
-        System.out.println(String.format("%s polling %s", serviceName, events));
-        super.offset.addAndGet(events.size());
+        System.out.printf("%s polling %s %n", serviceName, events);
+        offset.addAndGet(events.size());
     }
 
 }

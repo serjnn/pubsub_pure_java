@@ -1,3 +1,4 @@
+import abstractions.AbstractConsumer;
 import broker.Broker;
 import inheritors.ConsumerFirst;
 import inheritors.ProducerFirst;
@@ -12,7 +13,7 @@ public class Main {
         Broker broker = new Broker(3);
 
         final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
+        
 
         ProducerFirst producer = new ProducerFirst(broker, "producer-1");
 
